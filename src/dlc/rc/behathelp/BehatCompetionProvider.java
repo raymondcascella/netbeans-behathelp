@@ -1,5 +1,6 @@
 package dlc.rc.behathelp;
 
+import java.util.Locale;
 import javax.swing.text.Document;
 import javax.swing.text.JTextComponent;
 import org.netbeans.api.editor.mimelookup.MimeRegistration;
@@ -28,8 +29,19 @@ public class BehatCompetionProvider implements CompletionProvider {
     }
     return new AsyncCompletionTask(new AsyncCompletionQuery() {
       @Override
-      protected void query(CompletionResultSet crs, Document dcmnt, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+      protected void query(CompletionResultSet crs, Document dcmnt, int caretOffset) {
+
+        //Iterate through the available steps
+        //and assign each country display name
+        //to a CompletionResultSet:
+
+        // How do load the files to grep through them???
+        String[] things = {"Given", "When", "Them"};
+        for (String thing : things) {
+          crs.addItem(new BehatCompletionItem(thing, caretOffset));
+        }
+
+        crs.finish();
       }
     });
   }
